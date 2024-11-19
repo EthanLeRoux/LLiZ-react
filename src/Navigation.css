@@ -1,0 +1,30 @@
+/* Navigation Component Styles */
+body{
+    font-family: 'Roboto', sans-serif;
+
+}
+.Navigation span {
+    display: flex; /* Aligns items in a row */
+    justify-content: flex-end; /* Pushes links to the right */
+    gap: 15px; /* Adds space between links */
+    grid-column-start: 4; /* Position within grid */
+    background-color: blueviolet; /* Adds a background highlight */
+}
+
+.Navigation span a {
+    color: white; /* White text for links */
+    padding: 10px 15px; /* Padding around links */
+    font-size: 18px; /* Slightly larger font size */
+    font-weight: bold; /* Bold text */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover effect */
+    text-decoration: none;
+}
+
+.Navigation span a:hover {
+    color: blueviolet; /* Changes text color on hover */
+    background-color: white; /* Adds a background highlight */
+}
+
+.Logo{
+    float: left;
+}
