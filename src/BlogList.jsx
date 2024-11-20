@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import getBlogs from "./GetBlogs.js";
+import {Link} from "react-router-dom";
 import { Card, Row, Col, Button } from 'react-bootstrap';
 
-function Grammar(){
+function BlogList(){
     const[blogs,setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -29,22 +30,17 @@ function Grammar(){
     return (
         <>
             <h1>Grammar Lessons</h1>
-            <Row>
-                {blogs.map((blog) => (
-                    <Col key={blog.id} md={4} className="mb-4">
-                        <Card>
-                            {blog.imageUrl && <Card.Img variant="top" src={blog.imageUrl} alt={blog.title}/>}
-                            <Card.Body>
-                                <Card.Title>{blog.title}</Card.Title>
-                                <Card.Text>{blog.content.slice(0, 100)}...</Card.Text>
-                                <Button variant="primary" href={`/blogs/${blog.id}`}>Read More</Button>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
+            <ul>
+                {blogs.map((blog => (
+                        <li key={blog.id}>
+                            {/* Link to the individual blog page */}
+                            <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                        </li>
+                    ))
+                )}
+            </ul>
         </>
     )
 }
 
-export default Grammar;
+export default BlogList;

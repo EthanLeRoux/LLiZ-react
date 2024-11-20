@@ -1,7 +1,17 @@
 :root {
-  margin: 0 auto;
+  margin: 0 ;
+  padding: 0;
 }
 body{
   font-family: 'Roboto', sans-serif;
+  padding: 0;
+}
 
+header {
+  margin: 0; /* Ensure no margin on the header */
+  padding: 0;
+}
+
+.lists{
+  list-style-type: none;
 }

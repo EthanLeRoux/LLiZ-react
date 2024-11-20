@@ -1,30 +1,34 @@
-/* Navigation Component Styles */
-body{
+/* Custom Styles */
+body {
     font-family: 'Roboto', sans-serif;
-
 }
+
+.Navigation {
+    background-color: blueviolet; /* Background color for navigation */
+    padding: 10px 0; /* Padding for the nav */
+}
+
 .Navigation span {
-    display: flex; /* Aligns items in a row */
-    justify-content: flex-end; /* Pushes links to the right */
-    gap: 15px; /* Adds space between links */
-    grid-column-start: 4; /* Position within grid */
-    background-color: blueviolet; /* Adds a background highlight */
+    display: flex; /* Flexbox to align items */
+    justify-content: flex-end; /* Align links to the right */
+    gap: 15px; /* Space between links */
 }
 
 .Navigation span a {
-    color: white; /* White text for links */
-    padding: 10px 15px; /* Padding around links */
-    font-size: 18px; /* Slightly larger font size */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding for the links */
+    font-size: 18px; /* Font size */
     font-weight: bold; /* Bold text */
-    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover effect */
     text-decoration: none;
+    transition: color 0.3s, background-color 0.3s; /* Smooth hover transition */
 }
 
 .Navigation span a:hover {
-    color: blueviolet; /* Changes text color on hover */
-    background-color: white; /* Adds a background highlight */
+    color: blueviolet; /* Hover text color */
+    background-color: white; /* Hover background color */
 }
 
-.Logo{
-    float: left;
+.Logo {
+    float: left; /* Logo to the left */
+    margin-right: 10px; /* Space between logo and text */
 }

@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import './Form.css'
 import postUser from "./PostUser.js";
@@ -8,6 +8,7 @@ function SignUp(){
     const[email,setEmail] = useState("");
     const[username,setUsername] = useState("");
     const[password,setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleChangeEmail = (event) =>{
         setEmail(event.target.value);
@@ -30,7 +31,7 @@ function SignUp(){
             userKey: secret
         }
         postUser(userData);
-
+        navigate("/login");
     }
     return(
     <>

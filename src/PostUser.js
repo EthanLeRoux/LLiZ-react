@@ -1,12 +1,5 @@
 async function postUser(userData){
     try{
-        // const payload = {
-        //     userName: userData.userName,  // map userName from the userData object
-        //     userEmail: userData.userEmail, // map userEmail
-        //     userPassword: userData.userPassword, // map userPassword
-        //     userKey:userData.userKey
-        // };
-
         const url = "http://localhost:8080/api/users";
         const response = await fetch(url, {
             method: "POST",

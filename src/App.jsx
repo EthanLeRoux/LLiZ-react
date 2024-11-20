@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Grammar from "./Grammar.jsx";
+
 import Resources from "./Resources.jsx";
 import About from "./About.jsx";
 import Navigation from "./Navigation.jsx";
@@ -8,6 +8,8 @@ import "./App.css"
 import BlogMaker from "./BlogMaker.jsx";
 import Login from "./Login.jsx";
 import SignUp from "./SignUp.jsx";
+import BlogList from "./BlogList.jsx";
+import BlogPage from "./BlogPage.jsx";
 function App() {
 
   return (
@@ -19,10 +21,16 @@ function App() {
                 <Route path="/" element={<Home/>} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<SignUp/>} />
-                <Route path="/grammar" element={<Grammar/>} />
+                <Route path="/grammar" element={<BlogList/>} />
                 <Route path="/res" element={<Resources/>} />
                 <Route path="/about" element={<About/>} />
-                <Route path="/maker" element={<BlogMaker/>} />
+                <Route path="/blogmaker" element={<BlogMaker/>} />
+
+                    {/* Route for the list of blogs */}
+                    <Route path="/" element={<BlogList/>} />
+
+                    {/* Route for each individual blog page */}
+                    <Route path="/blogs/:id" element={<BlogPage/>} />
             </Routes>
         </Router>
 
