@@ -1,8 +1,8 @@
-import './Resources.css'
+import './styles/Resources.css'
 function Resources(){
     return (
         <>
-            <div>
+            <div style={{padding: 20}}>
                 <div className="text">
                     <h1>Resources</h1>
 

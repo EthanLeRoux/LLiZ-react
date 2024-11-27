@@ -1,14 +1,27 @@
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
-import './Form.css'
+import './styles/Form.css'
 import postUser from "./PostUser.js";
 import secretKeyGenerator from "./secretKeyGenerator.js";
+import postUserLogin from "./PostUserLogin.js";
+import * as OTPAuth from "otpauth";
+
+
 
 function SignUp(){
     const[email,setEmail] = useState("");
     const[username,setUsername] = useState("");
     const[password,setPassword] = useState("");
     const navigate = useNavigate();
+
+    const totp = new OTPAuth.TOTP({
+        issuer: 'LLiZ',
+        label: (sessionStorage.getItem('username')),
+        algorithm: 'SHA1',
+        digits: 6,
+        period: 60,
+        secret: new OTPAuth.Secret().base32 // Use a securely generated secret
+    });
 
     const handleChangeEmail = (event) =>{
         setEmail(event.target.value);
@@ -20,8 +33,10 @@ function SignUp(){
         setPassword(event.target.value);
     }
 
-    const secret = secretKeyGenerator();
+    const secret = totp.secret.base32;
+    let auth = totp.toString();
 
+    sessionStorage.setItem('auth', auth);
     const formSubmit = (event) =>{
         event.preventDefault();
         const userData = {
@@ -30,8 +45,17 @@ function SignUp(){
             userPassword: password,
             userKey: secret
         }
-        postUser(userData);
-        navigate("/login");
+
+        const data = postUser(userData);
+
+        if(data){
+            alert('Successful signup!');
+            navigate("/login");
+        }
+        else{
+            alert("Something went wrong. Please try again.")
+        }
+
     }
     return(
     <>

@@ -2,9 +2,8 @@
 function About(){
     return (
         <>
-            <h1>About</h1>
-            <div className="text">
-                <h2>Sanibonani!</h2>
+            <div style={{padding: 20}} className="text">
+                <h2>About</h2>
 
                 <p>
                     Welcome to Let's Learn isiZulu, a site dedicated to the learning of the isiZulu language, and the

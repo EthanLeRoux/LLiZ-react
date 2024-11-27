@@ -5,6 +5,7 @@ import postBlog from "./PostBlog.js";
 function BlogMaker() {
     const[title,setTitle] = useState("");
     const [content, setContent] = useState("");
+    let author = JSON.parse(sessionStorage.getItem('username'));
 
     const handleChange = function(event) {
         setContent(event.target.value);
@@ -22,9 +23,11 @@ function BlogMaker() {
         event.preventDefault();
         console.log("Content: "+content);
         console.log("Title: "+title);
+
         const blogData={
             title:title,
-            content:content
+            content:content,
+           author: author
         };
 
         //sends blog content to api

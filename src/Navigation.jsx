@@ -1,32 +1,44 @@
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import './Navigation.css'
-import logo from './assets/logo.png';  // Import your logo image
+import { useState } from "react";
+import './styles/Navigation.css';
+import logo from './assets/logo.png'; // Import your logo image
+
 function Navigation() {
+    const [menuOpen, setMenuOpen] = useState(false); // State to track menu toggle
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen); // Toggle menu state
+    };
+
     return (
-        <Navbar bg="light" expand="lg">
-            <Container>
-                <Navbar.Brand as={Link} to={"/"} className="d-flex align-items-center">
-                    <img
-                        src={logo}
-                        alt="LLiZ Logo"
-                        className="LogoImage"
-                        height={"50px"}
-                        width={"auto"}
-                    />
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbar-nav" />
-                <Navbar.Collapse id="navbar-nav">
-                    <Nav className="ms-auto">
-                        <Nav.Link as={Link} to={"/login"}>Login</Nav.Link>
-                        <Nav.Link as={Link} to={"/about"}>About</Nav.Link>
-                        <Nav.Link as={Link} to={"/grammar"}>Grammar</Nav.Link>
-                        <Nav.Link as={Link} to={"/res"}>Resources</Nav.Link>
-                        <Nav.Link as={Link} to={"/blogmaker"}>Blog Maker</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <nav className="navigation">
+            <div className="container">
+                <div className="brand">
+                    <Link to="/" className="logo-link">
+                        <img
+                            src={logo}
+                            alt="LLiZ Logo"
+                            className="logo-image"
+                        />
+                    </Link>
+                </div>
+                <button
+                    className={`menu-toggle ${menuOpen ? "active" : ""}`}
+                    aria-label="Toggle menu"
+                    onClick={toggleMenu}
+                >
+                    &#9776;
+                </button>
+                <ul className={`nav-links ${menuOpen ? "show" : ""}`}>
+                    <li><Link to="/profile">Profile</Link></li>
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/grammar">Grammar</Link></li>
+                    <li><Link to="/res">Resources</Link></li>
+                    <li><Link to="/admin">Blog Maker</Link></li>
+                </ul>
+            </div>
+        </nav>
     );
 }
 

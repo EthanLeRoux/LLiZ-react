@@ -1,4 +1,3 @@
-import { otplib } from '@otplib/preset-browser';
 import { authenticator } from '@otplib/preset-browser';
 
 function secretKeyGenerator() {

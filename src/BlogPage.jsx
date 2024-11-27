@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import timestampConverter from "./TimestampConverter.js";
 import parse from 'html-react-parser';
-
+import './styles/BlogPage.css'
 function BlogPage (){
     const { id } = useParams();
     const [blog, setBlog] = useState(null);
@@ -20,9 +20,12 @@ function BlogPage (){
     if (!blog) return <div>Loading...</div>;
 
     return (
-        <div>
+        <div style={{padding: 20}}>
             <h1>{blog.title}</h1>
-            <p>Created at {timestampConverter(blog.createdAt)}</p>
+            <h5>
+                By {blog.author}
+            </h5>
+            <p className={"createdBy"}>Created at {timestampConverter(blog.createdAt)}</p>
             <p>
                 {parse(blog.content)}
             </p>

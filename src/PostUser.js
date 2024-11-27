@@ -10,7 +10,9 @@ async function postUser(userData){
                 userName: userData.userName,  // map userName from the userData object
                 userEmail: userData.userEmail, // map userEmail
                 userPassword: userData.userPassword, // map userPassword
-                userKey:userData.userKey})
+                userKey:userData.userKey,
+                role:'user'
+            })
         });
 
         if(!response.ok){
@@ -19,8 +21,7 @@ async function postUser(userData){
         }
 
         const data = await response.json();
-        console.log('Success:', data);
-        alert('Success:')
+        return data
     }
     catch(error){
         console.error(error);

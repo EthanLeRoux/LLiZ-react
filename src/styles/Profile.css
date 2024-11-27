@@ -1,0 +1,107 @@
+/* Container */
+.profile-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid blueviolet;
+    margin-bottom: 15px;
+}
+
+.profile-username {
+    font-size: xx-large;
+    color: blueviolet;
+    margin: 0;
+}
+
+.profile-role {
+    font-size: large;
+    color: gray;
+    margin-top: 5px;
+}
+
+/* Body Section */
+.profile-body {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.profile-section-title {
+    font-size: large;
+    color: blueviolet;
+    margin-bottom: 10px;
+    border-bottom: 2px solid blueviolet;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.profile-bio,
+.profile-contact {
+    font-size: large;
+    color: #555;
+    margin: 10px 0;
+}
+
+.profile-contact a {
+    color: blueviolet;
+    text-decoration: none;
+}
+
+.profile-contact a:hover {
+    text-decoration: underline;
+}
+
+/* Action Buttons */
+.profile-actions {
+    margin-top: 20px;
+}
+
+.profile-btn {
+    padding: 10px 20px;
+    font-size: large;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-family: inherit;
+}
+
+.btn-edit {
+    background-color: blueviolet;
+    color: white;
+    border: none;
+}
+
+.btn-edit:hover {
+    background-color: white;
+    color: #6c2ac9;
+    border: solid 2px;
+    border-color:#6c2ac9 ;
+}
+
+.btn-logout {
+    background-color: blueviolet;
+    color: white;
+    border: none;
+}
+
+.btn-logout:hover {
+    background-color: white;
+    color: #6c2ac9;
+    border: solid 2px;
+    border-color:#6c2ac9 ;
+}
