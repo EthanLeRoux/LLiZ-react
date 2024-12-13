@@ -33,7 +33,7 @@ function Profile() {
             <div className="profile-header">
                 <img
                     className="profile-picture"
-                    src="src/assets/profile.png" // Placeholder image
+                    src="../public/profile.png" // Placeholder image
                     alt={`${username}'s profile`}
                 />
                 <h1 className="profile-username">{username}</h1>
