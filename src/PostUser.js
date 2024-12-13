@@ -1,17 +1,15 @@
 async function postUser(userData){
     try{
-        const url = "http://localhost:8080/api/users";
+        const url = `${import.meta.env.VITE_API_URL}/api/users/signup`;
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                userName: userData.userName,  // map userName from the userData object
-                userEmail: userData.userEmail, // map userEmail
-                userPassword: userData.userPassword, // map userPassword
-                userKey:userData.userKey,
-                role:'user'
+                user_name: userData.userName,  // map userName from the userData object
+                user_email: userData.userEmail, // map userEmail
+                user_password: userData.userPassword, // map userPassword
             })
         });
 

@@ -3,11 +3,10 @@
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 5px solid blueviolet;
     border-radius: 10px;
     background-color: #f9f9f9;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Header Section */
@@ -81,6 +80,12 @@
 }
 
 .btn-edit {
+    background-color: blueviolet;
+    color: white;
+    border: none;
+}
+
+.btn-delete {
     background-color: blueviolet;
     color: white;
     border: none;

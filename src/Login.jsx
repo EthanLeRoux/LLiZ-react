@@ -14,25 +14,7 @@ function Login(){
     const handleChangePassword = function (event){
         setPassword(event.target.value);
     }
-
-    // const formSubmit = function (event) {
-    //     event.preventDefault();
-    //     const userData = {
-    //         userName:username,
-    //         userPassword: password
-    //     }
-    //     let dot = postUserLogin(userData);
-    //     if(dot.valueOf()!=null){
-    //         setUsername("");
-    //         setPassword("");
-    //
-    //     }
-    //     else{
-    //         alert("Log In unsuccessdul")
-    //     }
-    //     navigate("/");
-    // }
-
+    
     const formSubmit = async function (event) {
         event.preventDefault();
         const userData = {
@@ -48,9 +30,8 @@ function Login(){
             setPassword("");
 
             // Alert for successful login
-            alert("Login successful!");           // Navigate to home page after successful login
+            alert(data.message);           // Navigate to home page after successful login
             navigate("/");
-
         } else {
             // If login fails
             alert("Login unsuccessful. Password or Username is incorrect.");

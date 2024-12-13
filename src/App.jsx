@@ -10,7 +10,8 @@ import BlogList from "./BlogList.jsx";
 import BlogPage from "./BlogPage.jsx";
 import Profile from "./Profile.jsx";
 import Admin from "./Admin.jsx";
-import {useState} from "react";
+import ProfileEditor from "./ProfileEditor.jsx";
+import DeleteUserComp from "./DeleteUserComp.jsx";
 
 function App() {
   return (
@@ -21,11 +22,13 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path="/profile" element={<Profile/>} />
+                <Route path="/editprofile" element={<ProfileEditor/>} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<SignUp/>} />
                 <Route path="/grammar" element={<BlogList/>} />
                 <Route path="/res" element={<Resources/>} />
                 <Route path="/about" element={<About/>} />
+                <Route path="/deleteAccount" element={<DeleteUserComp/>} />
 
                     {/* Route for the list of blogs */}
                     <Route path="/" element={<BlogList/>} />

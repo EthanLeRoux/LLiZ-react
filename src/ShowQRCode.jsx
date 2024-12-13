@@ -7,9 +7,9 @@ function ShowQRCode(){
     let auth = sessionStorage.getItem('auth');
 
     // Function to handle QR code generation
-    const generateQRCode = async (secretKey) => {
+    const generateQRCode = async () => {
         try {
-            const url = await QRCode.toDataURL(secretKey); // Generate QR code URL asynchronously
+            const url = await QRCode.toDataURL(auth); // Generate QR code URL asynchronously
             setQrCodeUrl(url); // Update the QR code URL
             setLoading(false); // Set loading to false once done
         } catch (error) {

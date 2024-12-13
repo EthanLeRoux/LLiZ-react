@@ -2,11 +2,12 @@ async function postBlog(blogData){
 
 
    try{
-      const url ="http://localhost:8080/api/blogs";
+      const url =`${import.meta.env.VITE_API_URL}/api/blogs`;
       const response = await fetch(url,{
          method: "POST",
          headers:{
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Include token if required
          },
          body: JSON.stringify({
             title: blogData.title,

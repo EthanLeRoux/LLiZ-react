@@ -2,15 +2,15 @@ import sessionHandler from "./setUserSession.js";
 
 async function postUser(userData) {
     try {
-        const url = "http://localhost:8080/api/users/login";
+        const url = `${import.meta.env.VITE_API_URL}/api/users/login`;
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                userName: userData.userName, // send the username
-                userPassword: userData.userPassword, // send the plain-text password
+                user_name: userData.userName, // send the username
+                user_password: userData.userPassword, // send the plain-text password
             }),
         });
 
@@ -21,7 +21,13 @@ async function postUser(userData) {
         const data = await response.json();
         console.log(data);
         // Handle session
-        sessionHandler(data.userName,data.id,data.role,data.userEmail,data.userKey); // Save session (e.g., JWT or user data)
+        sessionHandler(
+            data.user.user_name,
+            data.user.user_id,
+            data.user.role,
+            data.user.user_email,
+            data.token,
+            data.refreshToken); // Save session (e.g., JWT or user data)
         return data
     } catch (error) {
         console.error("Login failed:", error);

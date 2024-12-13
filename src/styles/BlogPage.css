@@ -6,3 +6,22 @@ h1{
 .createdBy{
     font-style: italic;
 }
+
+/* Ensure iframe is not inside a scrollpane */
+iframe {
+    display: block; /* Removes any default padding or margin that could cause scrolling */
+    width: 100%; /* Ensures the iframe takes the full width of its container */
+    height: 100vh; /* Or adjust to your desired height */
+    border: none; /* Removes any border that might cause overflow */
+}
+
+/* Make sure the parent container doesn't have overflow set */
+#root {
+    overflow: visible; /* Ensure no scrollbars appear on the root element */
+}
+
+/* Optional: if you want to control padding/margin of the iframe's container */
+.grid {
+    padding: 0;
+    margin: 0;
+}

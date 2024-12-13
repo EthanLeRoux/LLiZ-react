@@ -1,13 +1,12 @@
 async function getBlogs(){
     try{
-        const url = "http://localhost:8080/api/blogs";
+        const url = `${import.meta.env.VITE_API_URL}/api/blogs`;
         const response = await fetch(url,{
             method: "GET",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json"
             }
-
         });
 
         if(!response.ok){
