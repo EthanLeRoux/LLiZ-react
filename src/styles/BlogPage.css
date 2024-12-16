@@ -25,3 +25,14 @@ iframe {
     padding: 0;
     margin: 0;
 }
+.tags{
+}
+
+.blogTag{
+    display: inline-block;
+    margin: 5px 5px;
+    padding: 5px;
+    /*background-color: #cacaca;*/
+    background-color: rgba(138, 43, 226, 0.43);
+    border-radius: 5px;
+}

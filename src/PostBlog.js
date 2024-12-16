@@ -12,7 +12,8 @@ async function postBlog(blogData){
          body: JSON.stringify({
             title: blogData.title,
             content: blogData.content,
-            author:blogData.author
+            author:blogData.author,
+            tags:blogData.tags
          })
       });
 

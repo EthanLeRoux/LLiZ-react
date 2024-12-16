@@ -33,7 +33,7 @@ function Navigation() {
                     <li><Link to="/profile">Profile</Link></li>
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/about">About</Link></li>
-                    <li><Link to="/grammar">Grammar</Link></li>
+                    <li><Link to="/posts">Posts</Link></li>
                     <li><Link to="/res">Resources</Link></li>
                     <li><Link to="/admin">Blog Maker</Link></li>
                 </ul>

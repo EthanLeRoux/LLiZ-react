@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import getBlogs from "./GetBlogs.js";
-import { Link } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {Card} from "react-bootstrap";
+import './styles/RecentPosts.css';
 
-function BlogList() {
+function    RecentPosts(){
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true); // Ensure it starts as true
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchBlogs() {
@@ -25,7 +28,6 @@ function BlogList() {
         fetchBlogs();
     }, []);
 
-    // Debugging logs for state
     console.log("Loading state:", loading);
     console.log("Error state:", error);
     console.log("Blogs state:", blogs);
@@ -34,18 +36,29 @@ function BlogList() {
     if (error) return <div>Error: {error}</div>; // Show error message if any
     if (blogs.length === 0) return <div>No blogs found.</div>; // Handle empty blogs
 
-    return (
+    const recentBlogs = blogs.slice(0, 3);
+
+    const handleClick = function (blog){
+        navigate(`/posts/${blog.id}`);
+    }
+
+    return(
         <>
-            <h1>Posts</h1>
-            <ul>
-                {blogs.map((blog) => (
-                    <li key={blog.id}>
-                        <Link to={`/posts/${blog.id}`}>{blog.title}</Link>
-                    </li>
+            <h2>Recent Posts</h2>
+            <div className={"recentPostsContainer"}>
+
+                {recentBlogs.map((blog) => (
+                    <Card className={"recentpost"} style={{}} key={blog.id} onClick={() => handleClick(blog)}>
+                        <Card.Body>
+                            <Card.Title>{blog.title}</Card.Title>
+                            <Card.Text>{blog.content}</Card.Text>
+                        </Card.Body>
+                    </Card>
                 ))}
-            </ul>
+            </div>
+
         </>
-    );
+    )
 }
 
-export default BlogList;
+export default RecentPosts;

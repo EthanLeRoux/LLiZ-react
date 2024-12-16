@@ -1,0 +1,14 @@
+.word-card {
+    background: linear-gradient(to right, blueviolet, #602a9a);
+    background-color: #602897;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(138, 43, 226, 0.66);
+    margin: 20px auto;
+    z-index: 1;
+    position: relative;
+    pointer-events: auto;
+}

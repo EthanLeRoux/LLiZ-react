@@ -51,7 +51,7 @@
 }
 
 .menu-toggle.active {
-    background-color: blueviolet; /* Optional: change the background color when active */
+    background-color: blueviolet;
 }
 
 /* Responsive Styles */
@@ -63,10 +63,11 @@
         margin-top: 1rem;
         background-color: blueviolet;
         position: absolute;
-        top: 4rem; /* Adjust as needed */
+        top: 4rem;
         left: 0;
         right: 0;
         padding-left: 0;
+        z-index: 1050;
     }
 
     .nav-links.show {
@@ -76,6 +77,11 @@
     .nav-links li {
         margin: 1rem 0;
         text-align: center;
+    }
+
+    .logo-image{
+        width: 200px;
+        height: auto;
     }
 
     .menu-toggle {

@@ -25,7 +25,7 @@ function App() {
                 <Route path="/editprofile" element={<ProfileEditor/>} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<SignUp/>} />
-                <Route path="/grammar" element={<BlogList/>} />
+                <Route path="/posts" element={<BlogList/>} />
                 <Route path="/res" element={<Resources/>} />
                 <Route path="/about" element={<About/>} />
                 <Route path="/deleteAccount" element={<DeleteUserComp/>} />
@@ -34,7 +34,7 @@ function App() {
                     <Route path="/" element={<BlogList/>} />
 
                     {/* Route for each individual blog page */}
-                    <Route path="/blogs/:id" element={<BlogPage/>} />
+                    <Route path="/posts/:id" element={<BlogPage/>} />
 
                 <Route
                     path="/admin"
