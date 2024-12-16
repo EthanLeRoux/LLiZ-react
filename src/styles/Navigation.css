@@ -2,6 +2,7 @@
 .navigation {
     background-color: blueviolet;
     padding: 1rem;
+    background: linear-gradient(to right, blueviolet, #602a9a)
 }
 
 .container {
