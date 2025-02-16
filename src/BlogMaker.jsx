@@ -65,7 +65,7 @@ function BlogMaker() {
                     />
                 </p>
 
-                <BlogTagSelector onTagChange={handleTagChange} /> {/* Pass the handleTagChange function */}
+                <BlogTagSelector onTagChange={handleTagChange} />
 
                 <Editor value={content} onChange={handleContentChange} />
 

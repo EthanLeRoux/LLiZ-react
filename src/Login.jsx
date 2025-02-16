@@ -24,7 +24,7 @@ function Login(){
 
         const data = await postUserLogin(userData);
 
-        if (data) {  // Ensure data is returned from the login function
+        if (data) {
             // Clear the fields
             setUsername("");
             setPassword("");

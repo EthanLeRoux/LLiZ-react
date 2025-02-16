@@ -3,7 +3,7 @@ async function getBlogs(){
         const url = `${import.meta.env.VITE_API_URL}/api/blogs`;
         const response = await fetch(url,{
             method: "GET",
-            mode: "cors",
+            mode: "no-cors",
             headers: {
                 "Content-Type": "application/json"
             }

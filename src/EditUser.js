@@ -7,7 +7,6 @@ const editUser = async (userData) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                // Assuming you have a way to get the JWT token (perhaps from sessionStorage or a global state)
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             },
             body: JSON.stringify({
