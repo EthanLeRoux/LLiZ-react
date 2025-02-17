@@ -3,7 +3,7 @@ async function getWordOfDay(){
         const url = `${import.meta.env.VITE_API_URL}/api/wordofday`;
         const response = await fetch(url,{
             method: "GET",
-            mode: "no-cors",
+            mode: "cors",
             headers: {
                 "Content-Type": "application/json"
             }

@@ -12,8 +12,14 @@ function BlogList() {
             console.log("Fetching blogs..."); // Debugging log
             try {
                 const data = await getBlogs();
-                console.log("Blogs fetched successfully:", data); // Log fetched data
-                setBlogs(data);
+                if(data === null){
+                    console.log('No blogs. Please check your connection.');
+                }
+                else{
+                    console.log("Blogs fetched successfully:", data); // Log fetched data
+                    setBlogs(data);
+                }
+
             } catch (error) {
                 console.error("Error during fetch:", error.message); // Log the error
                 setError(error.message);
@@ -32,17 +38,25 @@ function BlogList() {
 
     if (loading) return <div>Loading...</div>; // Show loading message
     if (error) return <div>Error: {error}</div>; // Show error message if any
-    if (blogs.length === 0) return <div>No blogs found.</div>; // Handle empty blogs
+    //if (blogs.length === 0) return <div>No blogs found.</div>; // Handle empty blogs
 
     return (
         <>
-            <h1>Posts</h1>
+
             <ul>
-                {blogs.map((blog) => (
-                    <li key={blog.id}>
-                        <Link to={`/posts/${blog.id}`}>{blog.title}</Link>
-                    </li>
-                ))}
+                <h1>Posts</h1>
+                {
+                    (blogs.length === 0) ?
+                    blogs.map((blog) => (
+                        <li key={blog.id}>
+                            <Link to={`/posts/${blog.id}`}>{blog.title}</Link>
+                        </li>
+                    ))
+                    :
+                    <>
+                        No blogs found. Try refreshing.
+                    </>
+                }
             </ul>
         </>
     );

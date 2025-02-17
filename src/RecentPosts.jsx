@@ -1,27 +1,28 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import getBlogs from "./GetBlogs.js";
-import {useNavigate} from "react-router-dom";
-import {Card} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Card } from "react-bootstrap";
 import './styles/RecentPosts.css';
 
-function    RecentPosts(){
+function RecentPosts() {
     const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true); // Ensure it starts as true
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchBlogs() {
-            console.log("Fetching blogs..."); // Debugging log
+            console.log("Fetching blogs...");
             try {
                 const data = await getBlogs();
-                console.log("Blogs fetched successfully:", data); // Log fetched data
+                if (!data) {
+                    throw new Error("Failed to fetch blogs. Please check your connection.");
+                }
                 setBlogs(data);
             } catch (error) {
-                console.error("Error during fetch:", error.message); // Log the error
+                console.error("Error during fetch:", error.message);
                 setError(error.message);
             } finally {
-                console.log("Finished fetching blogs."); // Debugging log
                 setLoading(false);
             }
         }
@@ -32,33 +33,39 @@ function    RecentPosts(){
     console.log("Error state:", error);
     console.log("Blogs state:", blogs);
 
-    if (loading) return <div>Loading...</div>; // Show loading message
-    if (error) return <div>Error: {error}</div>; // Show error message if any
-    if (blogs.length === 0) return <div>No blogs found.</div>; // Handle empty blogs
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+    if (!blogs || blogs.length === 0) return <div>No blogs found.</div>;
 
     const recentBlogs = blogs.slice(0, 3);
 
-    const handleClick = function (blog){
+    const handleClick = (blog) => {
         navigate(`/posts/${blog.id}`);
-    }
+    };
 
-    return(
+    return (
         <>
             <h2>Recent Posts</h2>
-            <div className={"recentPostsContainer"}>
-
-                {recentBlogs.map((blog) => (
-                    <Card className={"recentpost"} style={{}} key={blog.id} onClick={() => handleClick(blog)}>
+            <div className="recentPostsContainer">
+                {recentBlogs.length > 0 ? (
+                    recentBlogs.map((blog) => (
+                        <Card className="recentpost" key={blog.id} onClick={() => handleClick(blog)}>
+                            <Card.Body>
+                                <Card.Title>{blog.title}</Card.Title>
+                                <Card.Text>{blog.content}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    ))
+                ) : (
+                    <Card className="recentpost">
                         <Card.Body>
-                            <Card.Title>{blog.title}</Card.Title>
-                            <Card.Text>{blog.content}</Card.Text>
+                            <Card.Title>No recent posts.</Card.Title>
                         </Card.Body>
                     </Card>
-                ))}
+                )}
             </div>
-
         </>
-    )
+    );
 }
 
 export default RecentPosts;

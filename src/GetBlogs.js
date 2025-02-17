@@ -3,21 +3,20 @@ async function getBlogs(){
         const url = `${import.meta.env.VITE_API_URL}/api/blogs`;
         const response = await fetch(url,{
             method: "GET",
-            mode: "no-cors",
+            mode:"cors",
             headers: {
                 "Content-Type": "application/json"
             }
         });
 
-        if(!response.ok){
-            throw new Error();
+        if(response.ok){
+            return await response.json();
         }
-
-        const data = await response.json();
-        return data;
+            return null;
     }
     catch(error){
         console.error(error);
+        return null;
     }
 }
 
