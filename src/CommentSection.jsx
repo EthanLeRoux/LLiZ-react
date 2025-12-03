@@ -59,7 +59,7 @@ function CommentSection({ blogId }) {
                             Reply
                         </button>
                     </div>
-                    {replyingTo && <div style={styles.replyInfo}>Replying to {replyingTo}</div>}
+                    {/* {replyingTo && <div style={styles.replyInfo}>Replying to {replyingTo}</div>} */}
                     <div style={styles.commentContent}>{c.content}</div>
                     {renderComments(c._id, level + 1)}
                 </div>
