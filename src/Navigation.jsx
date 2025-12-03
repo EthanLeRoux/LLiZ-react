@@ -1,14 +1,30 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './styles/Navigation.css';
-import logo from './assets/logo.png'; // Import your logo image
+import logo from './assets/logo.png';
 
 function Navigation() {
-    const [menuOpen, setMenuOpen] = useState(false); // State to track menu toggle
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [user, setUser] = useState(null);
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen); // Toggle menu state
-    };
+    const toggleMenu = () => setMenuOpen(!menuOpen);
+
+    useEffect(() => {
+        const username = sessionStorage.getItem("username");
+        const role = sessionStorage.getItem("role");
+
+        if (username && role) {
+            setUser({
+                username: JSON.parse(username),
+                role: JSON.parse(role),
+            });
+        } else {
+            setUser(null);
+        }
+    }, []);
+
+    const isLoggedIn = user !== null;
+    const isAdmin = user?.role === "admin";
 
     return (
         <nav className="navigation">
@@ -22,6 +38,7 @@ function Navigation() {
                         />
                     </Link>
                 </div>
+
                 <button
                     className={`menu-toggle ${menuOpen ? "active" : ""}`}
                     aria-label="Toggle menu"
@@ -29,13 +46,23 @@ function Navigation() {
                 >
                     &#9776;
                 </button>
+
                 <ul className={`nav-links ${menuOpen ? "show" : ""}`}>
-                    <li><Link to="/profile">Profile</Link></li>
-                    <li><Link to="/login">Login</Link></li>
+                    {isLoggedIn && (
+                        <li><Link to="/profile">Profile</Link></li>
+                    )}
+
+                    {!isLoggedIn && (
+                        <li><Link to="/login">Login</Link></li>
+                    )}
+
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/posts">Posts</Link></li>
                     <li><Link to="/res">Resources</Link></li>
-                    <li><Link to="/admin">Blog Maker</Link></li>
+
+                    {isAdmin && (
+                        <li><Link to="/admin">Blog Maker</Link></li>
+                    )}
                 </ul>
             </div>
         </nav>
