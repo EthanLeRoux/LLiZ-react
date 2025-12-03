@@ -59,10 +59,7 @@ function Navigation() {
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/posts">Posts</Link></li>
                     <li><Link to="/res">Resources</Link></li>
-
-                    {isAdmin && (
-                        <li><Link to="/admin">Blog Maker</Link></li>
-                    )}
+                    <li><Link to="/admin">Blog Maker</Link></li>
                 </ul>
             </div>
         </nav>

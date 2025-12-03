@@ -15,7 +15,8 @@ function BlogPage() {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs/${id}`);
             const data = await response.json();
             setBlog(data);
-            setTags(data.tags);
+            setTags(data.tags.map(tag => tag));
+            console.log(data);
         }
 
         fetchBlog();

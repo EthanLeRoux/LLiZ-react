@@ -8,6 +8,7 @@ function BlogMaker() {
     const [content, setContent] = useState("");
     const [tags, setTags] = useState([]);
     let author = JSON.parse(sessionStorage.getItem('username'));
+    let authorid = JSON.parse(sessionStorage.getItem('userid'));
 
     const handleTitleChange = (event) => setTitle(event.target.value);
     const handleContentChange = (value) => setContent(value);
@@ -15,7 +16,8 @@ function BlogMaker() {
 
     const submitBlog = (event) => {
         event.preventDefault();
-        const blogData = { title, content, author, tags };
+        const blogData = { title, content, author, tags,authorid };
+        console.log(blogData)
         postBlog(blogData);
         setTitle("");
         setContent("");

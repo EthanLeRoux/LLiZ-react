@@ -13,6 +13,7 @@ async function postBlog(blogData){
             title: blogData.title,
             content: blogData.content,
             author:blogData.author,
+            authorId:blogData.authorid,
             tags:blogData.tags
          })
       });
