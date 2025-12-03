@@ -46,16 +46,15 @@ function BlogList() {
             <ul>
                 <h1>Posts</h1>
                 {
-                    (blogs.length === 0) ?
+                    blogs.length > 0 ? (
                     blogs.map((blog) => (
-                        <li key={blog.id}>
-                            <Link to={`/posts/${blog.id}`}>{blog.title}</Link>
+                        <li key={blog._id}>
+                            <Link to={`/posts/${blog._id}`}>{blog.title}</Link>
                         </li>
                     ))
-                    :
-                    <>
-                        No blogs found. Try refreshing.
-                    </>
+                    ) : (
+                        <>No blogs found. Try refreshing.</>
+                    )
                 }
             </ul>
         </>

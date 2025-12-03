@@ -9,8 +9,8 @@ async function postUser(userData) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                user_name: userData.userName, // send the username
-                user_password: userData.userPassword, // send the plain-text password
+                user_name: userData.user_name, // send the username
+                user_password: userData.user_password, // send the plain-text password
             }),
         });
 

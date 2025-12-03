@@ -18,8 +18,8 @@ function Login(){
     const formSubmit = async function (event) {
         event.preventDefault();
         const userData = {
-            userName: username,
-            userPassword: password
+            user_name: username,
+            user_password: password
         };
 
         const data = await postUserLogin(userData);
