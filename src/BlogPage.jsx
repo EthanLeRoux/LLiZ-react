@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import './styles/BlogPage.css';
 import parse from 'html-react-parser';
 import { ReactCusdis } from 'react-cusdis'
+import CommentSection from "./CommentSection";
 
 function BlogPage() {
     const { id } = useParams();
@@ -40,7 +41,8 @@ function BlogPage() {
             </div>
             <br/>
             <br/>
-            <ReactCusdis
+            <CommentSection blogId={id} />
+            {/* <ReactCusdis
                 attrs={{
                     host: 'https://cusdis.com',
                     appId: blog.appId,
@@ -49,7 +51,7 @@ function BlogPage() {
                     pageUrl: `${import.meta.env.VITE_API_URL}/api/blogs/${id}`
                 }}
                 className={'cusdis'}
-            />
+            /> */}
         </div>
     );
 }
