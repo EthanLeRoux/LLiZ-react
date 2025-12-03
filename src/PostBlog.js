@@ -7,7 +7,7 @@ async function postBlog(blogData){
          method: "POST",
          headers:{
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Include token if required
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
          },
          body: JSON.stringify({
             title: blogData.title,
@@ -25,6 +25,7 @@ async function postBlog(blogData){
       const data = await response.json();
       console.log('Success:', data);
       alert('Success: Blog Posted')
+      return data;
    }
    catch(error){
       console.error(error);

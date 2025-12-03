@@ -1,5 +1,6 @@
-import Editor from "./Editor.jsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // <-- import useNavigate
+import Editor from "./Editor.jsx";
 import postBlog from "./PostBlog.js";
 import BlogTagSelector from "./BlogTagSelector.jsx";
 
@@ -7,6 +8,7 @@ function BlogMaker() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [tags, setTags] = useState([]);
+    const navigate = useNavigate(); // <-- initialize navigate
     let author = JSON.parse(sessionStorage.getItem('username'));
     let authorid = JSON.parse(sessionStorage.getItem('userid'));
 
@@ -14,86 +16,34 @@ function BlogMaker() {
     const handleContentChange = (value) => setContent(value);
     const handleTagChange = (selectedTags) => setTags(selectedTags);
 
-    const submitBlog = (event) => {
+    const submitBlog = async (event) => {
         event.preventDefault();
-        const blogData = { title, content, author, tags,authorid };
-        console.log(blogData)
-        postBlog(blogData);
-        setTitle("");
-        setContent("");
-        setTags([]);
-    };
 
-    // CSS-in-JS styles
-    const styles = {
-        container: {
-            maxWidth: "900px",
-            margin: "20px auto",
-            padding: "30px 20px", // Added more padding
-            backgroundColor: "#f9f9ff",
-            borderRadius: "12px",
-            boxShadow: "0 6px 15px rgba(0,0,0,0.1)",
-            display: "flex",
-            flexDirection: "column",
-            gap: "25px",
-        },
-        input: {
-            width: "100%",
-            padding: "12px 16px", // More internal spacing
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            fontSize: "1rem",
-            outline: "none",
-            transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-        },
-        inputFocus: {
-            borderColor: "blueviolet",
-            boxShadow: "0 0 5px rgba(138, 43, 226, 0.5)",
-        },
-        button: {
-            color: "white",
-            backgroundColor: "blueviolet",
-            borderRadius: "8px",
-            border: "none",
-            padding: "12px 25px", // Larger button padding
-            cursor: "pointer",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            alignSelf: "flex-start", // Button doesn’t stretch full width
-        },
-        buttonHover: {
-            transform: "translateY(-2px)",
-            boxShadow: "0 4px 10px rgba(138, 43, 226, 0.4)",
-        },
-    };
+        if (tags.length === 0) {
+            alert("Please select at least one tag before submitting the blog.");
+            return;
+        }
 
-    const [hovered, setHovered] = useState(false);
+        const blogData = { title, content, author, tags, authorid };;
+
+        const response = await postBlog(blogData);
+        if (response) {
+            alert("Blog posted successfully!");
+            navigate("/posts"); 
+            setTitle("");
+            setContent("");
+            setTags([]);
+        }
+    };
 
     return (
-        <div style={styles.container}>
+        <div style={{ maxWidth: "900px", margin: "20px auto", padding: "30px 20px", backgroundColor: "#f9f9ff", borderRadius: "12px", boxShadow: "0 6px 15px rgba(0,0,0,0.1)" }}>
             <h1>Blog Maker</h1>
-            <form style={{ display: "flex", flexDirection: "column", gap: "25px" }} onSubmit={submitBlog}>
-                <input
-                    type="text"
-                    value={title}
-                    onChange={handleTitleChange}
-                    placeholder="Title goes here"
-                    style={{ ...styles.input, ...(hovered ? styles.inputFocus : {}) }}
-                    onFocus={() => setHovered(true)}
-                    onBlur={() => setHovered(false)}
-                />
-
+            <form onSubmit={submitBlog} style={{ display: "flex", flexDirection: "column", gap: "25px" }}>
+                <input type="text" value={title} onChange={handleTitleChange} placeholder="Title goes here" style={{ padding: "12px 16px", borderRadius: "8px", border: "1px solid #ccc" }} />
                 <BlogTagSelector onTagChange={handleTagChange} />
-
                 <Editor value={content} onChange={handleContentChange} />
-
-                <button
-                    type="submit"
-                    style={{ ...styles.button, ...(hovered ? styles.buttonHover : {}) }}
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                >
+                <button type="submit" style={{ backgroundColor: "blueviolet", color: "white", borderRadius: "8px", padding: "12px 25px", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                     Submit
                 </button>
             </form>

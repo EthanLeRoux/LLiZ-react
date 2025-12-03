@@ -101,6 +101,7 @@ function BlogTagSelector({ onTagChange }) {
                                 ...(isSelected ? styles.tagSelected : {}),
                             }}
                             onClick={() => handleTagChange(tag.tag_name)}
+                            required
                         >
                             <span style={styles.label}>{tag.tag_name}</span>
                         </div>
