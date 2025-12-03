@@ -45,6 +45,8 @@ function BlogList() {
         },
     };
 
+
+    
     useEffect(() => {
         async function fetchBlogs() {
             try {
@@ -81,7 +83,11 @@ function BlogList() {
 
 function Card({ blog, styles }) {
     const [hover, setHover] = useState(false);
-
+    function stripHtml(html) {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
     return (
         <li
             style={
@@ -95,7 +101,7 @@ function Card({ blog, styles }) {
             <Link to={`/posts/${blog._id}`} style={{ textDecoration: "none" }}>
                 <div style={styles.title}>{blog.title}</div>
                 <div style={styles.preview}>
-                    {blog.content || "No preview available."}
+                        {stripHtml(blog.content).slice(0, 150) + (blog.content.length > 150 ? "..." : "")}
                 </div>
             </Link>
         </li>

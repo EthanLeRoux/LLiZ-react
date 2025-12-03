@@ -10,6 +10,13 @@ function RecentPosts() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    function stripHtml(html) {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
+
+
     useEffect(() => {
         async function fetchBlogs() {
             console.log("Fetching blogs...");
@@ -40,7 +47,7 @@ function RecentPosts() {
     const recentBlogs = blogs.slice(0, 3);
 
     const handleClick = (blog) => {
-        navigate(`/posts/${blog.id}`);
+        navigate(`/posts/${blog._id}`);
     };
 
     return (
@@ -49,10 +56,10 @@ function RecentPosts() {
             <div className="recentPostsContainer">
                 {recentBlogs.length > 0 ? (
                     recentBlogs.map((blog) => (
-                        <Card className="recentpost" key={blog.id} onClick={() => handleClick(blog)}>
+                        <Card className="recentpost" key={blog._id} onClick={() => handleClick(blog)}>
                             <Card.Body>
                                 <Card.Title>{blog.title}</Card.Title>
-                                <Card.Text>{blog.content}</Card.Text>
+                                <Card.Text>    {stripHtml(blog.content).slice(0, 150) + (blog.content.length > 150 ? "..." : "")}</Card.Text>
                             </Card.Body>
                         </Card>
                     ))

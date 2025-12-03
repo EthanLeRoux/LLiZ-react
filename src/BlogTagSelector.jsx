@@ -1,46 +1,112 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import getTags from "./GetTags"; // Import your getTags function
 
 function BlogTagSelector({ onTagChange }) {
-    const predefinedTags = [
-        { id: 1, name: "Grammar" },
-        { id: 2, name: "Pronunciation" },
-        { id: 3, name: "Culture" },
-        { id: 4, name: "History" },
+    const fallbackTags = [
+        { tag_name: "Grammar" },
+        { tag_name: "Pronunciation" },
+        { tag_name: "Culture" },
+        { tag_name: "History" },
+        { tag_name: "Vocabulary" },
+        { tag_name: "Conversation" },
     ];
 
+    const [availableTags, setAvailableTags] = useState(fallbackTags);
     const [selectedTags, setSelectedTags] = useState([]);
 
-    const handleTagChange = (event) => {
-        const { value } = event.target;
+    useEffect(() => {
+        async function fetchTags() {
+            try {
+                const tags = await getTags();
+                if (tags && tags.length > 0) {
+                    setAvailableTags(tags);
+                } else {
+                    console.warn("No tags fetched, using fallback tags.");
+                }
+            } catch (error) {
+                console.error("Failed to fetch tags, using fallback:", error);
+            }
+        }
+        fetchTags();
+    }, []);
+
+    const handleTagChange = (tagName) => {
         const newSelectedTags = [...selectedTags];
-        if (newSelectedTags.includes(value)) {
-            // If tag is already selected, remove it
-            const index = newSelectedTags.indexOf(value);
+        if (newSelectedTags.includes(tagName)) {
+            const index = newSelectedTags.indexOf(tagName);
             newSelectedTags.splice(index, 1);
         } else {
-            // If tag is not selected, add it
-            newSelectedTags.push(value);
+            newSelectedTags.push(tagName);
         }
 
         setSelectedTags(newSelectedTags);
-        onTagChange(newSelectedTags); // Pass the updated tags to BlogMaker
+        onTagChange(newSelectedTags);
+    };
+
+    const clearAllTags = () => {
+        setSelectedTags([]);
+        onTagChange([]);
+    };
+
+    // CSS-in-JS styles
+    const styles = {
+        container: {
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "10px",
+            marginTop: "10px",
+            padding: "10px",
+        },
+        tag: {
+            padding: "8px 16px",
+            borderRadius: "20px",
+            backgroundColor: "#ce9affff",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+            userSelect: "none",
+        },
+        tagSelected: {
+            backgroundColor: "blueviolet",
+            color: "#fff",
+        },
+        label: {
+            marginLeft: "5px",
+            cursor: "pointer",
+        },
+        clearButton: {
+            padding: "10px 15px 10px 5px",
+            borderRadius: "8px",
+            border: "none",
+            backgroundColor: "#a54a4aff",
+            color: "#fff",
+            cursor: "pointer",
+            marginBottom: "10px",
+        },
     };
 
     return (
         <div>
             <h3>Select Tags:</h3>
-            {predefinedTags.map((tag) => (
-                <div key={tag.id}>
-                    <input
-                        type="checkbox"
-                        id={tag.id}
-                        value={tag.name}
-                        checked={selectedTags.includes(tag.name)}
-                        onChange={handleTagChange}
-                    />
-                    <label htmlFor={tag.id}>{tag.name}</label>
-                </div>
-            ))}
+            <button style={styles.clearButton} onClick={clearAllTags}>
+                Clear All
+            </button>
+            <div style={styles.container}>
+                {availableTags.map((tag, index) => {
+                    const isSelected = selectedTags.includes(tag.tag_name);
+                    return (
+                        <div
+                            key={index}
+                            style={{
+                                ...styles.tag,
+                                ...(isSelected ? styles.tagSelected : {}),
+                            }}
+                            onClick={() => handleTagChange(tag.tag_name)}
+                        >
+                            <span style={styles.label}>{tag.tag_name}</span>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }
