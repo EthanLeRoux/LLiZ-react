@@ -1,7 +1,7 @@
 // GetComments.js
 async function getComments(blogId) {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/comments/${blogId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/comments/blog/${blogId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

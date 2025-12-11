@@ -14,6 +14,7 @@ async function postComment(commentData) {
         return null;
     } catch (error) {
         console.error("Error posting comment:", error);
+        console.error("COMMENT SAVE ERROR:", error);
         return null;
     }
 }

@@ -4,6 +4,7 @@ import './styles/BlogPage.css';
 import parse from 'html-react-parser';
 import { ReactCusdis } from 'react-cusdis'
 import CommentSection from "./CommentSection";
+import LikeDislike from "./LikeBtn";
 
 function BlogPage() {
     const { id } = useParams();
@@ -32,7 +33,7 @@ function BlogPage() {
                 <div className={"tags"}>
                     {
                         tags.map(function (currentTag, index) {
-                            return (<div key={index} className={"blogTag"}>{currentTag}</div>)
+                            return (<div key={index} className={"blogTag"}>{currentTag.tag_name}</div>)
                         })
                     }
                 </div>
@@ -42,6 +43,8 @@ function BlogPage() {
             </div>
             <br/>
             <br/>
+            {/* <LikeDislike blogId={id} authorId={blog.authorId} initialLikes={blog.likes?.length || blog.likes || 0} /> */}
+
             <CommentSection blogId={id} />
             {/* <ReactCusdis
                 attrs={{

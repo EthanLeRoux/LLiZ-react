@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import getComments from "./GetComments";
 import postComment from "./PostComment";
+import deleteComment from "./DeleteComment";
 
 function CommentSection({ blogId }) {
     const [comments, setComments] = useState([]);
@@ -29,21 +30,39 @@ function CommentSection({ blogId }) {
             content: newComment,
             parentId: replyTo, // null if top-level comment
         };
+console.log("Sending comment:", commentData);
 
         const savedComment = await postComment(commentData);
         if (savedComment) {
             setComments([...comments, savedComment]);
             setNewComment("");
             setReplyTo(null);
+            alert("Comment posted successfully!");
+        }
+    };
+
+    const handleDeleteComment = async (commentId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
+        if (!confirmDelete) return;
+
+        const result = await deleteComment(commentId);
+        if (result) {
+            setComments(comments.filter(c => c._id !== commentId));
+            alert("Comment deleted successfully!");
+        } else {
+            alert("Failed to delete comment");
         }
     };
 
     const renderComments = (parentId = null, level = 0) => {
+    const loggedInUserId = JSON.parse(sessionStorage.getItem('userid'));
+    
     return comments
         .filter(c => String(c.parentId) === String(parentId))
         .map(c => {
             const parentComment = comments.find(p => String(p._id) === String(c.parentId));
             const replyingTo = parentComment ? parentComment.author : null;
+            const isAuthor = String(c.authorId) === String(loggedInUserId);
 
             // Adjust background for nested levels
             const bgColor = level === 0 ? "#f5f0ff" : `rgba(205, 153, 255, ${0.1 + level * 0.1})`;
@@ -52,12 +71,23 @@ function CommentSection({ blogId }) {
                 <div key={c._id} style={{ ...styles.comment, marginLeft: level * 20, backgroundColor: bgColor }}>
                     <div style={styles.commentHeader}>
                         <strong>{c.author}</strong>
-                        <button
-                            style={styles.replyButton}
-                            onClick={() => setReplyTo(c._id)}
-                        >
-                            Reply
-                        </button>
+                        <div style={styles.commentActions}>
+                            {isAuthor && (
+                                <button
+                                    style={styles.deleteButton}
+                                    onClick={() => handleDeleteComment(c._id)}
+                                    title="Delete comment"
+                                >
+                                    🗑️
+                                </button>
+                            )}
+                            <button
+                                style={styles.replyButton}
+                                onClick={() => setReplyTo(c._id)}
+                            >
+                                Reply
+                            </button>
+                        </div>
                     </div>
                     {/* {replyingTo && <div style={styles.replyInfo}>Replying to {replyingTo}</div>} */}
                     <div style={styles.commentContent}>{c.content}</div>
@@ -86,6 +116,19 @@ function CommentSection({ blogId }) {
             display: "flex",
             justifyContent: "space-between",
             marginBottom: "5px",
+            alignItems: "center",
+        },
+        commentActions: {
+            display: "flex",
+            gap: "8px",
+        },
+        deleteButton: {
+            backgroundColor: "transparent",
+            border: "none",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+            padding: "0",
+            transition: "transform 0.2s ease",
         },
         replyButton: {
             backgroundColor: "blueviolet",
