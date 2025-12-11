@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import './styles/BlogPage.css';
 import parse from 'html-react-parser';
 import { ReactCusdis } from 'react-cusdis'
@@ -25,10 +25,40 @@ function BlogPage() {
 
     if (!blog) return <div>Loading...</div>;
 
+    const loggedInUserId = JSON.parse(sessionStorage.getItem('userid'));
+    const isAuthor = String(blog.authorId) === String(loggedInUserId);
+
+    const styles = {
+        header: {
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "20px",
+        },
+        editButton: {
+            backgroundColor: "blueviolet",
+            color: "white",
+            padding: "8px 16px",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontSize: "1rem",
+            textDecoration: "none",
+            display: "inline-block",
+        },
+    };
+
     return (
         <div style={{padding: 20}}>
+            <div style={styles.header}>
+                <h1 style={{ margin: 0 }}>{blog.title}</h1>
+                {isAuthor && (
+                    <Link to={`/edit/${id}`} style={styles.editButton}>
+                        Edit Post
+                    </Link>
+                )}
+            </div>
             <div>
-                <h1>{blog.title}</h1>
                 <p className={"createdBy"}>By {blog.author}</p>
                 <div className={"tags"}>
                     {

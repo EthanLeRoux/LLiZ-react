@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import getTags from "./GetTags"; // Import your getTags function
 
-function BlogTagSelector({ onTagChange }) {
+function BlogTagSelector({ onTagChange, initialTags = [] }) {
     const fallbackTags = [
         { tag_name: "Grammar" },
         { tag_name: "Pronunciation" },
@@ -29,6 +29,16 @@ function BlogTagSelector({ onTagChange }) {
         }
         fetchTags();
     }, []);
+
+    // Set initial tags when they're provided
+    useEffect(() => {
+        if (initialTags && initialTags.length > 0) {
+            const tagNames = initialTags.map(tag => 
+                typeof tag === 'string' ? tag : tag.tag_name
+            );
+            setSelectedTags(tagNames);
+        }
+    }, [initialTags]);
 
     const handleTagChange = (tagName) => {
         const newSelectedTags = [...selectedTags];

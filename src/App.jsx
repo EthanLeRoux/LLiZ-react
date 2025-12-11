@@ -12,6 +12,7 @@ import Profile from "./Profile.jsx";
 import Admin from "./Admin.jsx";
 import ProfileEditor from "./ProfileEditor.jsx";
 import DeleteUserComp from "./DeleteUserComp.jsx";
+import BlogEditor from "./BlogEditor.jsx";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
 
                     {/* Route for the list of blogs */}
                     <Route path="/" element={<BlogList/>} />
+
+                    {/* Route to edit a blog */}
+                    <Route path="/edit/:id" element={<BlogEditor/>} />
 
                     {/* Route for each individual blog page */}
                     <Route path="/posts/:id" element={<BlogPage/>} />
