@@ -55,14 +55,33 @@ function RecentPosts() {
             <h2>Recent Posts</h2>
             <div className="recentPostsContainer">
                 {recentBlogs.length > 0 ? (
-                    recentBlogs.map((blog) => (
-                        <Card className="recentpost" key={blog._id} onClick={() => handleClick(blog)}>
-                            <Card.Body>
-                                <Card.Title>{blog.title}</Card.Title>
-                                <Card.Text>    {stripHtml(blog.content).slice(0, 150) + (blog.content.length > 150 ? "..." : "")}</Card.Text>
-                            </Card.Body>
-                        </Card>
-                    ))
+                    recentBlogs.map((blog) => {
+                        const likeCount = blog.likes ? blog.likes.length : 0;
+                        const dislikeCount = blog.dislikes ? blog.dislikes.length : 0;
+                        
+                        return (
+                            <Card className="recentpost" key={blog._id} onClick={() => handleClick(blog)} style={{ position: "relative" }}>
+                                <Card.Body>
+                                    <Card.Title>{blog.title}</Card.Title>
+                                    <Card.Text>    {stripHtml(blog.content).slice(0, 150) + (blog.content.length > 150 ? "..." : "")}</Card.Text>
+                                </Card.Body>
+                                <div style={{
+                                    position: "absolute",
+                                    bottom: "10px",
+                                    right: "10px",
+                                    display: "flex",
+                                    gap: "12px",
+                                    fontSize: "0.9rem",
+                                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                                    padding: "6px 10px",
+                                    borderRadius: "6px",
+                                }}>
+                                    <span>👍 {likeCount}</span>
+                                    <span>👎 {dislikeCount}</span>
+                                </div>
+                            </Card>
+                        );
+                    })
                 ) : (
                     <Card className="recentpost">
                         <Card.Body>
