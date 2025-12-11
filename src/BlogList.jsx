@@ -23,6 +23,8 @@ function BlogList() {
             transition: "transform 0.2s ease, box-shadow 0.2s ease",
             cursor: "pointer",
             padding: "20px",
+            display: "flex",
+            flexDirection: "column",
         },
         cardHover: {
             transform: "translateY(-5px)",
@@ -42,6 +44,22 @@ function BlogList() {
             display: "-webkit-box",
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
+            flex: "1",
+        },
+        footer: {
+            marginTop: "15px",
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+        },
+        likeIcon: {
+            fontSize: "1.2rem",
+            cursor: "pointer",
+        },
+        likeCount: {
+            fontSize: "0.95rem",
+            color: "#666",
+            fontWeight: "500",
         },
     };
 
@@ -83,11 +101,15 @@ function BlogList() {
 
 function Card({ blog, styles }) {
     const [hover, setHover] = useState(false);
+    const likeCount = blog.likes ? blog.likes.length : 0;
+    const dislikeCount = blog.dislikes ? blog.dislikes.length : 0;
+    
     function stripHtml(html) {
-    const tmp = document.createElement("div");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
-}
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
+    
     return (
         <li
             style={
@@ -98,12 +120,18 @@ function Card({ blog, styles }) {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
-            <Link to={`/posts/${blog._id}`} style={{ textDecoration: "none" }}>
+            <Link to={`/posts/${blog._id}`} style={{ textDecoration: "none", display: "flex", flexDirection: "column", height: "100%" }}>
                 <div style={styles.title}>{blog.title}</div>
                 <div style={styles.preview}>
-                        {stripHtml(blog.content).slice(0, 150) + (blog.content.length > 150 ? "..." : "")}
+                    {stripHtml(blog.content).slice(0, 150) + (blog.content.length > 150 ? "..." : "")}
                 </div>
             </Link>
+            <div style={styles.footer}>
+                <span style={styles.likeIcon}>👍</span>
+                <span style={styles.likeCount}>{likeCount}</span>
+                <span style={styles.likeIcon}>👎</span>
+                <span style={styles.likeCount}>{dislikeCount}</span>
+            </div>
         </li>
     );
 }

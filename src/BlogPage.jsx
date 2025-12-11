@@ -43,7 +43,7 @@ function BlogPage() {
             </div>
             <br/>
             <br/>
-            {/* <LikeDislike blogId={id} authorId={blog.authorId} initialLikes={blog.likes?.length || blog.likes || 0} /> */}
+            <LikeDislike blogId={id} authorId={blog.authorId} initialLikes={blog.likes?.length || blog.likes || 0} />
 
             <CommentSection blogId={id} />
             {/* <ReactCusdis

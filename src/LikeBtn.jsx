@@ -6,13 +6,19 @@ function LikeDislike({ blogId, userId,authorId }) {
     const [userReaction, setUserReaction] = useState(null); // 'like' | 'dislike' | null
 
     useEffect(() => {
-        async function fetchReactions() {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bloglikes/${blogId}/reactions`);
-            const data = await res.json();
-            setLikes(data.likes);
-            setDislikes(data.dislikes);
+        async function fetchBlog() {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs/${blogId}`);
+            const data = await response.json();
+            
+            if(data.likes){
+                setLikes(data.likes.length);
+            }
+            if(data.dislikes){
+                setDislikes(data.dislikes.length);
+            }
         }
-        fetchReactions();
+
+        fetchBlog();
     }, [blogId]);
     
 
