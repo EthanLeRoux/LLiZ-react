@@ -7,6 +7,8 @@ function CommentSection({ blogId }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [replyTo, setReplyTo] = useState(null); // parent comment ID for replies
+    const [editingCommentId, setEditingCommentId] = useState(null);
+    const [editContent, setEditContent] = useState("");
 
     useEffect(() => {
         async function fetchComments() {
@@ -54,6 +56,47 @@ console.log("Sending comment:", commentData);
         }
     };
 
+    const handleEditComment = (commentId, currentContent) => {
+        setEditingCommentId(commentId);
+        setEditContent(currentContent);
+    };
+
+    const handleSaveEdit = async (commentId) => {
+        if (!editContent.trim()) {
+            alert("Comment cannot be empty");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/comments/${commentId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ content: editContent })
+            });
+
+            if (response.ok) {
+                setComments(comments.map(c => 
+                    c._id === commentId ? { ...c, content: editContent } : c
+                ));
+                setEditingCommentId(null);
+                setEditContent("");
+                alert("Comment updated successfully!");
+            } else {
+                alert("Failed to update comment");
+            }
+        } catch (err) {
+            alert("Error updating comment: " + err.message);
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setEditingCommentId(null);
+        setEditContent("");
+    };
+
     const renderComments = (parentId = null, level = 0) => {
     const loggedInUserId = JSON.parse(sessionStorage.getItem('userid'));
     
@@ -63,6 +106,7 @@ console.log("Sending comment:", commentData);
             const parentComment = comments.find(p => String(p._id) === String(c.parentId));
             const replyingTo = parentComment ? parentComment.author : null;
             const isAuthor = String(c.authorId) === String(loggedInUserId);
+            const isEditing = editingCommentId === c._id;
 
             // Adjust background for nested levels
             const bgColor = level === 0 ? "#f5f0ff" : `rgba(205, 153, 255, ${0.1 + level * 0.1})`;
@@ -73,25 +117,60 @@ console.log("Sending comment:", commentData);
                         <strong>{c.author}</strong>
                         <div style={styles.commentActions}>
                             {isAuthor && (
+                                <>
+                                    <button
+                                        style={styles.editButton}
+                                        onClick={() => handleEditComment(c._id, c.content)}
+                                        title="Edit comment"
+                                    >
+                                        ✏️
+                                    </button>
+                                    <button
+                                        style={styles.deleteButton}
+                                        onClick={() => handleDeleteComment(c._id)}
+                                        title="Delete comment"
+                                    >
+                                        🗑️
+                                    </button>
+                                </>
+                            )}
+                            {!isEditing && (
                                 <button
-                                    style={styles.deleteButton}
-                                    onClick={() => handleDeleteComment(c._id)}
-                                    title="Delete comment"
+                                    style={styles.replyButton}
+                                    onClick={() => setReplyTo(c._id)}
                                 >
-                                    🗑️
+                                    Reply
                                 </button>
                             )}
-                            <button
-                                style={styles.replyButton}
-                                onClick={() => setReplyTo(c._id)}
-                            >
-                                Reply
-                            </button>
                         </div>
                     </div>
                     {/* {replyingTo && <div style={styles.replyInfo}>Replying to {replyingTo}</div>} */}
-                    <div style={styles.commentContent}>{c.content}</div>
-                    {renderComments(c._id, level + 1)}
+                    {isEditing ? (
+                        <div style={styles.editContainer}>
+                            <textarea
+                                style={styles.textarea}
+                                value={editContent}
+                                onChange={(e) => setEditContent(e.target.value)}
+                            />
+                            <div style={styles.editActions}>
+                                <button 
+                                    style={{ ...styles.postButton, fontSize: "0.8rem" }}
+                                    onClick={() => handleSaveEdit(c._id)}
+                                >
+                                    Save
+                                </button>
+                                <button 
+                                    style={{ ...styles.cancelButton, fontSize: "0.8rem" }}
+                                    onClick={handleCancelEdit}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <div style={styles.commentContent}>{c.content}</div>
+                    )}
+                    {!isEditing && renderComments(c._id, level + 1)}
                 </div>
             );
         });
@@ -122,6 +201,14 @@ console.log("Sending comment:", commentData);
             display: "flex",
             gap: "8px",
         },
+        editButton: {
+            backgroundColor: "transparent",
+            border: "none",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+            padding: "0",
+            transition: "transform 0.2s ease",
+        },
         deleteButton: {
             backgroundColor: "transparent",
             border: "none",
@@ -129,6 +216,24 @@ console.log("Sending comment:", commentData);
             cursor: "pointer",
             padding: "0",
             transition: "transform 0.2s ease",
+        },
+        editContainer: {
+            marginTop: "10px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+        },
+        editActions: {
+            display: "flex",
+            gap: "8px",
+        },
+        cancelButton: {
+            backgroundColor: "#ccc",
+            color: "#333",
+            border: "none",
+            borderRadius: "5px",
+            padding: "2px 8px",
+            cursor: "pointer",
         },
         replyButton: {
             backgroundColor: "blueviolet",
