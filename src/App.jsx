@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Resources from "./Resources.jsx";
 import About from "./About.jsx";
 import Navigation from "./Navigation.jsx";
@@ -44,6 +44,9 @@ function App() {
                     path="/admin"
                     element={<Admin/>}
                 />
+
+                {/* Catch-all route - redirect to home for any unmatched routes */}
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>
 
