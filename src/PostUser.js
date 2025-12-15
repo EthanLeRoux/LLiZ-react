@@ -13,10 +13,10 @@ async function postUser(userData){
             })
         });
 
-        if(!response.ok){
-            throw new Error("Network response was not ok.");
-            //alert("Net Res not ok!");
-        }
+        // if(!response.ok){
+        //     throw new Error("Network response was not ok.");
+        //     //alert("Net Res not ok!");
+        // }
 
         const data = await response.json();
         return data

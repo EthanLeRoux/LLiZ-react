@@ -19,7 +19,7 @@ function SignUp(){
         setPassword(event.target.value);
     }
 
-    const formSubmit = (event) =>{
+    const formSubmit = async (event) =>{
         event.preventDefault();
         const userData = {
             userEmail: email,
@@ -27,14 +27,17 @@ function SignUp(){
             userPassword: password
         }
 
-        const data = postUser(userData);
-
-        if(data){
-            alert('Successful signup!');
-            navigate("/login");
+        const data = await postUser(userData);
+        
+        if(data.error){
+            alert("Error: " + data.error + ". Please try again.");
+            setEmail("");
+            setUsername("");
+            setPassword("");
         }
         else{
-            alert("Something went wrong. Please try again.")
+            alert('Successful signup!');
+            navigate("/login");
         }
 
     }
