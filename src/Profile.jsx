@@ -28,6 +28,11 @@ function Profile() {
     const edit = () =>{
         navigate("/editprofile");
     }
+
+    const forgotPassword = () =>{
+        navigate("/forgot-password");
+    }
+    
     return (
         <div className="profile-container">
             <div className="profile-header">
@@ -43,6 +48,10 @@ function Profile() {
             <div className="profile-actions">
                 <p>
                     <button className="btn-edit" onClick={edit}>Edit Profile</button>
+                </p>
+
+                <p>
+                    <button className="btn-edit" onClick={forgotPassword}>Forgot Password</button>
                 </p>
 
                 <p>

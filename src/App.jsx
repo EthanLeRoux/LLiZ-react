@@ -14,6 +14,8 @@ import ProfileEditor from "./ProfileEditor.jsx";
 import DeleteUserComp from "./DeleteUserComp.jsx";
 import BlogEditor from "./BlogEditor.jsx";
 import BlogMaker from "./BlogMaker.jsx";
+import ForgotPassword from "./ForgotPassword.jsx";
+import ResetPassword from "./ResetPassword.jsx";
 
 function App() {
   return (
@@ -23,6 +25,10 @@ function App() {
 
             <Routes>
                 <Route path="/" element={<Home/>} />
+
+                <Route path="/reset-password/:token" element={<ResetPassword />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+
                 <Route path="/profile" element={<Profile/>} />
                 <Route path="/editprofile" element={<ProfileEditor/>} />
                 <Route path="/login" element={<Login/>} />
