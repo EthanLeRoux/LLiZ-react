@@ -59,7 +59,7 @@ function Navigation() {
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/posts">Posts</Link></li>
                     <li><Link to="/res">Resources</Link></li>
-                    <li><Link to="/admin">Create Post</Link></li>
+                    <li><Link to="/createpost">Create Post</Link></li>
                 </ul>
             </div>
         </nav>

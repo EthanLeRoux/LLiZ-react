@@ -38,7 +38,7 @@ function BlogMaker() {
 
     return (
         <div style={{ maxWidth: "900px", margin: "20px auto", padding: "30px 20px", backgroundColor: "#f9f9ff", borderRadius: "12px", boxShadow: "0 6px 15px rgba(0,0,0,0.1)" }}>
-            <h1>Blog Maker</h1>
+            <h1>Create New Post</h1>
             <form onSubmit={submitBlog} style={{ display: "flex", flexDirection: "column", gap: "25px" }}>
                 <input type="text" value={title} onChange={handleTitleChange} placeholder="Title goes here" style={{ padding: "12px 16px", borderRadius: "8px", border: "1px solid #ccc" }} />
                 <BlogTagSelector onTagChange={handleTagChange} />

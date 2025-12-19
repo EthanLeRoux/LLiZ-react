@@ -48,17 +48,17 @@ function SignUp(){
             <form onSubmit={formSubmit}>
                 <p>
                     <input className={"formInput"} type={"email"} placeholder={"Email goes here"} value={email}
-                           onChange={handleChangeEmail}/>
+                           onChange={handleChangeEmail} required/>
                 </p>
 
                 <p>
                     <input className={"formInput"} type={"text"} placeholder={"Username goes here"} value={username}
-                           onChange={handleChangeUsername}/>
+                           onChange={handleChangeUsername} required/>
                 </p>
 
                 <p>
                     <input className={"formInput"} type={"password"} placeholder={"Password goes here"} value={password}
-                           onChange={handleChangePassword}/>
+                           onChange={handleChangePassword} required/>
                 </p>
 
                 <p>

@@ -13,6 +13,7 @@ import Admin from "./Admin.jsx";
 import ProfileEditor from "./ProfileEditor.jsx";
 import DeleteUserComp from "./DeleteUserComp.jsx";
 import BlogEditor from "./BlogEditor.jsx";
+import BlogMaker from "./BlogMaker.jsx";
 
 function App() {
   return (
@@ -43,6 +44,11 @@ function App() {
                 <Route
                     path="/admin"
                     element={<Admin/>}
+                />
+
+                <Route
+                    path="/createpost"
+                    element={<BlogMaker/>}
                 />
 
                 {/* Catch-all route - redirect to home for any unmatched routes */}
